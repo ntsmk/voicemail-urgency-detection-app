@@ -21,18 +21,27 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          install_components: 'beta'
+
+      - name: Create Artifact Registry repository
+        run: |
+          gcloud artifacts repositories create voicemail-webhook \
+            --repository-format=docker \
+            --location=us-central1 \
+            --description="Docker repository" || echo "Repository may already exist"
+
+      - name: Authenticate Docker
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Build Docker image
-        run: docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/voicemail-webhook/voicemail-webhook .
+        run: docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/voicemail-webhook/voicemail-webhook:${{ github.sha }} .
 
       - name: Push Docker image
-        run: docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/voicemail-webhook/voicemail-webhook
+        run: docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/voicemail-webhook/voicemail-webhook:${{ github.sha }}
 
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy voicemail-webhook \
-            --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/voicemail-webhook/voicemail-webhook \
+            --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/voicemail-webhook/voicemail-webhook:${{ github.sha }} \
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated
