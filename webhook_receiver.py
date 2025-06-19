@@ -21,4 +21,4 @@ def handle_webhook():
 
 @app.route("/")
 def home():
-    return "hello world, this is test adding more, lets see if CICD working"
+    return "hello world, this is test adding more, lets see if CICD working."
