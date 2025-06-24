@@ -45,4 +45,4 @@ jobs:
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated
-            --set-env-vars company_id=${{ secrets.company_id }}, manage_url=${{ manage_url }}, client_id=${{ client_id }}, public_key=${{ public_key }}, private_key=${{ private_key }}
+            --set-env-vars company_id=${{ secrets.COMPANY_ID }}, manage_url=${{ MANAGE_URL> }}, client_id=${{ CLIENT_ID }}, public_key=${{ PUBLIC_KEY }}, private_key=${{ PRIVATE_KEY }}
