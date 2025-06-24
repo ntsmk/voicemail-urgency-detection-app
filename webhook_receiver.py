@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import json
 
 app = Flask(__name__)
 
@@ -7,9 +8,22 @@ def handle_webhook():
     data = request.json
 
     # Logging for testing
-    print("Received webhook data:", data)
+    print("Received raw webhook data:", data)
 
-    ticket_title = data.get("summary", "").lower()
+    entity_str = data.get("Entity")
+    if not entity_str:
+        print("No 'Entity' field in payload.")
+        return jsonify({"status": "invalid"}), 400
+
+    try:
+        # Parse the stringified JSON in "Entity"
+        entity = json.loads(entity_str)
+    except json.JSONDecodeError:
+        print("Failed to parse 'Entity'.")
+        return jsonify({"status": "error parsing entity"}), 400
+
+    # Extract ticket title
+    ticket_title = entity.get("summary", "").lower()
 
     if "voicemail for" in ticket_title:
         print("Voicemail ticket detected:", ticket_title)
