@@ -8,7 +8,7 @@ manage_url = os.getenv("manage_url")
 client_id = os.getenv("client_id")
 public_key = os.getenv("public_key")
 private_key = os.getenv("private_key")
-manage_api_client = ConnectWiseManageAPIClient(company_id, manage_url, client_id, public_key, private_key)
+# manage_api_client = ConnectWiseManageAPIClient(company_id, manage_url, client_id, public_key, private_key)
 
 app = Flask(__name__)
 
@@ -38,8 +38,8 @@ def handle_webhook():
     if "voicemail for" in ticket_title:
         print("Voicemail ticket detected:", ticket_title)
         # todo need to call API to extract the note
-        ticket_initial_note = manage_api_client.service.tickets.id(ticket_id).notes.get()[0]
-        print("Detail:", ticket_initial_note)
+        # ticket_initial_note = manage_api_client.service.tickets.id(ticket_id).notes.get()[0]
+        # print("Detail:", ticket_initial_note)
 
         # todo need to call Vertex API to detect urgency
 
