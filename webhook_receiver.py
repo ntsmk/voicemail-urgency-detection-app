@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 import os
-import requests
 import json
 
 app = Flask(__name__)
@@ -27,6 +26,8 @@ def handle_webhook():
 
     if "voicemail for" in ticket_title:
         print("Voicemail ticket detected:", ticket_title)
+
+        import requests
         cw_company_id = os.getenv("company_id")
         cw_manage_url = os.getenv("manage_url")
         cw_client_id = os.getenv("client_id")
@@ -62,4 +63,4 @@ def handle_webhook():
 
 @app.route("/")
 def home():
-    return "hello world, this is test adding more, lets see if CICD working."
+    return "webhook is up"
