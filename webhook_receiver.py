@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
-import json
 import os
+import requests
+import json
 
 app = Flask(__name__)
 
@@ -8,7 +9,6 @@ app = Flask(__name__)
 def handle_webhook():
     data = request.json
 
-    # Logging for testing
     print("Received raw webhook data:", data)
 
     entity_str = data.get("Entity")
@@ -22,15 +22,11 @@ def handle_webhook():
         print("Failed to parse 'Entity'.")
         return jsonify({"status": "error parsing entity"}), 400
 
-    # Extract ticket title
     ticket_title = entity.get("summary", "").lower()
     ticket_id = entity.get("id", "")
 
     if "voicemail for" in ticket_title:
         print("Voicemail ticket detected:", ticket_title)
-        # todo need to call API to extract the note
-        import requests
-
         cw_company_id = os.getenv("company_id")
         cw_manage_url = os.getenv("manage_url")
         cw_client_id = os.getenv("client_id")
@@ -45,20 +41,20 @@ def handle_webhook():
         }
 
         note_url = f"{base_url}/service/tickets/{ticket_id}/notes"
-        response = requests.get(note_url, headers=headers)
-
-        if response.status_code == 200:
-            notes = response.json()
-            if notes:
-                print("First Note:", notes[0])
+        try:
+            response = requests.get(note_url, headers=headers)
+            if response.status_code == 200:
+                notes = response.json()
+                if notes:
+                    print("First Note:", notes[0])
+                else:
+                    print("No notes found.")
             else:
-                print("No notes found.")
-        else:
-            print("Failed to fetch notes:", response.text)
+                print("Failed to fetch notes:", response.text)
+        except requests.exceptions.RequestException as e:
+            print("API request failed:", str(e))
+            return jsonify({"status": "api_error", "error": str(e)}), 500
 
-        # todo need to call Vertex API to detect urgency
-
-        # todo need to call Twilio API to send text
         return jsonify({"status": "processed"}), 200
     else:
         print("Skipping non-voicemail ticket:", ticket_title)
