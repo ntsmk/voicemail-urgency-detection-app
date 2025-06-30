@@ -34,7 +34,7 @@ def handle_webhook():
         cw_public_key = os.getenv("public_key")
         cw_private_key = os.getenv("private_key")
 
-        base_url = f"{cw_manage_url}/v2022_1/apis/3.0"
+        base_url = f"https://{cw_manage_url}/v2022_1/apis/3.0"
         headers = {
             "clientId": cw_client_id,
             "Authorization": f"Basic {cw_public_key}+{cw_private_key}",
