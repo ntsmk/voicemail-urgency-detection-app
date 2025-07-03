@@ -28,16 +28,29 @@ def handle_webhook():
         print("Voicemail ticket detected:", ticket_title)
 
         import requests
+        import base64
+
         cw_company_id = os.getenv("company_id")
         cw_manage_url = os.getenv("manage_url")
         cw_client_id = os.getenv("client_id")
         cw_public_key = os.getenv("public_key")
         cw_private_key = os.getenv("private_key")
 
+        # base_url = f"https://{cw_manage_url}/v2022_1/apis/3.0"
+        # headers = {
+        #     "clientId": cw_client_id,
+        #     "Authorization": f"Basic {cw_public_key}+{cw_private_key}",
+        #     "Content-Type": "application/json"
+        # }
+
+        auth_str = f"{cw_company_id}+{cw_public_key}:{cw_private_key}"
+        auth_bytes = auth_str.encode('ascii')
+        auth_b64 = base64.b64encode(auth_bytes).decode('ascii')
+
         base_url = f"https://{cw_manage_url}/v2022_1/apis/3.0"
         headers = {
             "clientId": cw_client_id,
-            "Authorization": f"Basic {cw_public_key}+{cw_private_key}",
+            "Authorization": f"Basic {auth_b64}",
             "Content-Type": "application/json"
         }
 
