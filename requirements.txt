@@ -1,3 +1,2 @@
 Flask~=2.3.2
 gunicorn==21.2.0
-pyconnectwise~=0.6.1.2

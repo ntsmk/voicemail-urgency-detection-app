@@ -36,13 +36,6 @@ def handle_webhook():
         cw_public_key = os.getenv("public_key")
         cw_private_key = os.getenv("private_key")
 
-        # base_url = f"https://{cw_manage_url}/v2022_1/apis/3.0"
-        # headers = {
-        #     "clientId": cw_client_id,
-        #     "Authorization": f"Basic {cw_public_key}+{cw_private_key}",
-        #     "Content-Type": "application/json"
-        # }
-
         auth_str = f"{cw_company_id}+{cw_public_key}:{cw_private_key}"
         auth_bytes = auth_str.encode('ascii')
         auth_b64 = base64.b64encode(auth_bytes).decode('ascii')
