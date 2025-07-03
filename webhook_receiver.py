@@ -103,6 +103,8 @@ def test_notes(ticket_id):
     note_url = f"{base_url}/service/tickets/{ticket_id}/notes"
     try:
         response = requests.get(note_url, headers=headers)
+        print("executed .get here")
+
         if response.status_code == 200:
             notes = response.json()
             if notes:
@@ -114,6 +116,7 @@ def test_notes(ticket_id):
     except requests.exceptions.RequestException as e:
         print("API request failed:", str(e))
         return jsonify({"status": "api_error", "error": str(e)}), 500
+
     return "Check logs!"
 
 @app.route("/")
