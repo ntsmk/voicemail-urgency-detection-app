@@ -105,7 +105,7 @@ def test_notes(ticket_id):
             else:
                 print("No notes found.")
         else:
-            print(response.status_code)
+            # print(response.status_code)
             print("Failed to fetch notes:", response.text)
     except requests.exceptions.RequestException as e:
         print("API request failed:", str(e))
