@@ -92,8 +92,8 @@ def test_notes(ticket_id):
         "Authorization": f"Basic {auth_b64}",
         "Content-Type": "application/json"
     }
-
     note_url = f"{base_url}/service/tickets/{ticket_id}/notes"
+
     try:
         response = requests.get(note_url, headers=headers)
         print("executed .get here")
