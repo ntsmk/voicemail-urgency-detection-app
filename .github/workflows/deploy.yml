@@ -33,7 +33,7 @@ jobs:
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Build Docker image
-        run: docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/voicemail-webhook/voicemail-webhook:${{ github.sha }} .
+        run: docker build --no-cache -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/voicemail-webhook/voicemail-webhook:${{ github.sha }} .
 
       - name: Push Docker image
         run: docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/voicemail-webhook/voicemail-webhook:${{ github.sha }}
