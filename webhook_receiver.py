@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 import os
 import json
+import requests
+import base64
 
 app = Flask(__name__)
 
@@ -70,17 +72,12 @@ def handle_webhook():
 # todo need to work on this test route until I get proper results
 @app.route("/test_notes/<ticket_id>")
 def test_notes(ticket_id):
-    # Your code to call ConnectWise API and print result
     print("Voicemail ticket detected: This is test route")
-
-    import requests
-    import base64
 
     cw_company_id = os.getenv("company_id")
     cw_client_id = os.getenv("client_id")
     cw_public_key = os.getenv("public_key")
     cw_private_key = os.getenv("private_key")
-    # cw_manage_url = os.getenv("manage_url")
 
     auth_str = f"{cw_company_id}+{cw_public_key}:{cw_private_key}"
     auth_bytes = auth_str.encode('ascii')
@@ -96,7 +93,7 @@ def test_notes(ticket_id):
 
 
     try:
-        response = requests.get(note_url, headers=headers)
+        response = requests.get(note_url, headers=headers, timeout=10)
         print("executed .get here")
 
         if response.status_code == 200:
