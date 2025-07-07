@@ -28,12 +28,7 @@ def handle_webhook():
 
     if "voicemail for" in ticket_title:
         print("Voicemail ticket detected:", ticket_title)
-
-        import requests
-        import base64
-
         cw_company_id = os.getenv("company_id")
-        cw_manage_url = os.getenv("manage_url")
         cw_client_id = os.getenv("client_id")
         cw_public_key = os.getenv("public_key")
         cw_private_key = os.getenv("private_key")
@@ -42,16 +37,18 @@ def handle_webhook():
         auth_bytes = auth_str.encode('ascii')
         auth_b64 = base64.b64encode(auth_bytes).decode('ascii')
 
-        base_url = f"https://{cw_manage_url}/v2022_1/apis/3.0"
+        base_url = "https://na.myconnectwise.net/v4_6_release/apis/3.0"
+        note_url = f"{base_url}/service/tickets/{ticket_id}/notes"
         headers = {
             "clientId": cw_client_id,
             "Authorization": f"Basic {auth_b64}",
             "Content-Type": "application/json"
         }
 
-        note_url = f"{base_url}/service/tickets/{ticket_id}/notes"
         try:
-            response = requests.get(note_url, headers=headers)
+            response = requests.get(note_url, headers=headers, timeout=10)
+            print("executed .get here")
+
             if response.status_code == 200:
                 notes = response.json()
                 if notes:
@@ -59,6 +56,7 @@ def handle_webhook():
                 else:
                     print("No notes found.")
             else:
+                # print(response.status_code)
                 print("Failed to fetch notes:", response.text)
         except requests.exceptions.RequestException as e:
             print("API request failed:", str(e))
@@ -69,47 +67,45 @@ def handle_webhook():
         print("Skipping non-voicemail ticket:", ticket_title)
         return jsonify({"status": "ignored"}), 200
 
-# todo need to work on this test route until I get proper results
-@app.route("/test_notes/<ticket_id>")
-def test_notes(ticket_id):
-    print("Voicemail ticket detected: This is test route")
-
-    cw_company_id = os.getenv("company_id")
-    cw_client_id = os.getenv("client_id")
-    cw_public_key = os.getenv("public_key")
-    cw_private_key = os.getenv("private_key")
-
-    auth_str = f"{cw_company_id}+{cw_public_key}:{cw_private_key}"
-    auth_bytes = auth_str.encode('ascii')
-    auth_b64 = base64.b64encode(auth_bytes).decode('ascii')
-
-    base_url = "https://na.myconnectwise.net/v4_6_release/apis/3.0"
-    note_url = f"{base_url}/service/tickets/{ticket_id}/notes"
-    headers = {
-        "clientId": cw_client_id,
-        "Authorization": f"Basic {auth_b64}",
-        "Content-Type": "application/json"
-    }
-
-
-    try:
-        response = requests.get(note_url, headers=headers, timeout=10)
-        print("executed .get here")
-
-        if response.status_code == 200:
-            notes = response.json()
-            if notes:
-                print("First Note:", notes[0])
-            else:
-                print("No notes found.")
-        else:
-            # print(response.status_code)
-            print("Failed to fetch notes:", response.text)
-    except requests.exceptions.RequestException as e:
-        print("API request failed:", str(e))
-        return jsonify({"status": "api_error", "error": str(e)}), 500
-
-    return "Check logs!!!!"
+# @app.route("/test_notes/<ticket_id>")
+# def test_notes(ticket_id):
+#     print("Voicemail ticket detected: This is test route")
+#
+#     cw_company_id = os.getenv("company_id")
+#     cw_client_id = os.getenv("client_id")
+#     cw_public_key = os.getenv("public_key")
+#     cw_private_key = os.getenv("private_key")
+#
+#     auth_str = f"{cw_company_id}+{cw_public_key}:{cw_private_key}"
+#     auth_bytes = auth_str.encode('ascii')
+#     auth_b64 = base64.b64encode(auth_bytes).decode('ascii')
+#
+#     base_url = "https://na.myconnectwise.net/v4_6_release/apis/3.0"
+#     note_url = f"{base_url}/service/tickets/{ticket_id}/notes"
+#     headers = {
+#         "clientId": cw_client_id,
+#         "Authorization": f"Basic {auth_b64}",
+#         "Content-Type": "application/json"
+#     }
+#
+#     try:
+#         response = requests.get(note_url, headers=headers, timeout=10)
+#         print("executed .get here")
+#
+#         if response.status_code == 200:
+#             notes = response.json()
+#             if notes:
+#                 print("First Note:", notes[0])
+#             else:
+#                 print("No notes found.")
+#         else:
+#             # print(response.status_code)
+#             print("Failed to fetch notes:", response.text)
+#     except requests.exceptions.RequestException as e:
+#         print("API request failed:", str(e))
+#         return jsonify({"status": "api_error", "error": str(e)}), 500
+#
+#     return "Check logs!!!!"
 
 @app.route("/")
 def home():
