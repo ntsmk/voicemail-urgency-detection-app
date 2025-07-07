@@ -98,12 +98,12 @@ def test_notes(ticket_id):
             if notes:
                 print("First Note:", notes[0])
                 # todo fill out here
-                split_note = notes[0].text.split("--- Google transcription result ---", 1)[-1].strip()
+                split_note = notes[0].split("--- Google transcription result ---", 1)[-1].strip()
                 if split_note not in ["(Google was unable to recognize any speech in audio data.)", "null",
                                         "null\nnull"]:
                     trimed_note = split_note
                 else:
-                    trimed_note = "this voicemail ticket is empty"
+                    trimed_note = "empty"
                 print("Note passed to machine learning:", trimed_note)
             else:
                 print("No notes found.")
