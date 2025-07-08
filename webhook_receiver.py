@@ -3,8 +3,8 @@ import os
 import json
 import requests
 import base64
-from google.auth import default
-from google.auth.transport.requests import Request
+# from google.auth import default
+# from google.auth.transport.requests import Request
 
 app = Flask(__name__)
 
