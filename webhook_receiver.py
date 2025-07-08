@@ -104,11 +104,11 @@ def test_notes(ticket_id):
                                         "null\nnull"]:
                     trimed_note = split_note
                     # todo connect to Vertex AI API here
-                    gcp_project_id = os.getenv("project_id")
-                    gcp_location = os.getenv("location")
-                    gcp_endpoint_id = os.getenv("endpoint_id")
-                    URL = f"https://{gcp_location}-aiplatform.googleapis.com/v1/projects/{gcp_project_id}/locations/{gcp_location}/endpoints/{gcp_endpoint_id}:generateContent"
-                    print("set credentials")
+                    # gcp_project_id = os.getenv("project_id")
+                    # gcp_location = os.getenv("location")
+                    # gcp_endpoint_id = os.getenv("endpoint_id")
+                    # URL = f"https://{gcp_location}-aiplatform.googleapis.com/v1/projects/{gcp_project_id}/locations/{gcp_location}/endpoints/{gcp_endpoint_id}:generateContent"
+                    # print("set credentials")
 
                 else:
                     trimed_note = "the record is empty"
