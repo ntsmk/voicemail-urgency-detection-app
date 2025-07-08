@@ -67,7 +67,7 @@ def handle_webhook():
         print("Skipping non-voicemail ticket:", ticket_title)
         return jsonify({"status": "ignored"}), 200
 
-# todo add to trim the detail data in this test route
+# todo pass the trimmed text to vertex AI
 @app.route("/test_notes/<ticket_id>")
 def test_notes(ticket_id):
     print("Voicemail ticket detected: This is test route")
@@ -97,7 +97,6 @@ def test_notes(ticket_id):
             notes = response.json()
             if notes:
                 print("First Note:", notes[0])
-                # todo fill out here
                 split_note = notes[0]["text"].split("--- Google transcription result ---", 1)[-1].strip()
                 if split_note not in ["(Google was unable to recognize any speech in audio data.)", "null",
                                         "null\nnull"]:
