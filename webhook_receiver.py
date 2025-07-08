@@ -3,6 +3,8 @@ import os
 import json
 import requests
 import base64
+from google.auth import default
+from google.auth.transport.requests import Request
 
 app = Flask(__name__)
 
@@ -101,8 +103,15 @@ def test_notes(ticket_id):
                 if split_note not in ["(Google was unable to recognize any speech in audio data.)", "null",
                                         "null\nnull"]:
                     trimed_note = split_note
+                    # todo connect to Vertex AI API here
+                    gcp_project_id = os.getenv("project_id")
+                    gcp_location = os.getenv("location")
+                    gcp_endpoint_id = os.getenv("endpoint_id")
+                    URL = f"https://{gcp_location}-aiplatform.googleapis.com/v1/projects/{gcp_project_id}/locations/{gcp_location}/endpoints/{gcp_endpoint_id}:generateContent"
+                    print("set credentials")
+
                 else:
-                    trimed_note = "empty"
+                    trimed_note = "the record is empty"
                 print("Note passed to machine learning:", trimed_note)
             else:
                 print("No notes found.")
