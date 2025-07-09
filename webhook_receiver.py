@@ -5,6 +5,7 @@ import requests
 import base64
 from google.auth import default
 from google.auth.transport.requests import Request
+from twilio.rest import Client
 
 app = Flask(__name__)
 
@@ -188,6 +189,18 @@ def test_notes(ticket_id):
                     if "urgent" in result:
                         print("Urgent. Send text to notify")
                         urgent_flag = "urgent"
+                        tw_account_id = os.getenv("account_id")
+                        tw_auth_token = os.getenv("auth_token")
+                        tw_from_number = os.getenv("from_number")
+                        tw_to_number = os.getenv("to_number")
+
+                        client = Client(tw_account_id, tw_auth_token)
+                        message =client.messages.create(
+                            from_=tw_from_number,
+                            body=f"Urgency detected on voicemail ticket. \nTicket#:{ticket_id}\nDetails:{trimmed_note}",
+                            to=tw_to_number
+                        )
+
                     else:
                         print("Not urgent")
                         urgent_flag = "not urgent"
