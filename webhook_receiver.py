@@ -204,7 +204,10 @@ def test_notes(ticket_id):
         print("API request failed:", str(e))
         return jsonify({"status": "api_error", "error": str(e)}), 500
 
-    return result, urgent_flag
+    return jsonify({
+        "category": result,
+        "urgency": urgent_flag
+    })
 
 @app.route("/")
 def home():
