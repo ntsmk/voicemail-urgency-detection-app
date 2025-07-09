@@ -45,7 +45,7 @@ jobs:
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated \
-            --memory 2Gi \
+            --memory 4Gi \
             --set-env-vars company_id=${{ secrets.COMPANY_ID }} \
             --set-env-vars manage_url=${{ secrets.MANAGE_URL }} \
             --set-env-vars client_id=${{ secrets.CLIENT_ID }} \
