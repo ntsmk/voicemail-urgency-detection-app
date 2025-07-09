@@ -133,7 +133,7 @@ def test_notes(ticket_id):
         "Authorization": f"Basic {auth_b64}",
         "Content-Type": "application/json"
     }
-
+    urgent_flag = ""
     try:
         response = requests.get(note_url, headers=headers, timeout=10)
         print("executed .get here")
@@ -183,10 +183,13 @@ def test_notes(ticket_id):
                     result = response.json()['candidates'][0]['content']['parts'][0]['text']
                     print(result)
                     # todo if the result contains "urgent", send text via twilio
+
                     if "urgent" in result:
                         print("Urgent. Send text to notify")
+                        urgent_flag = "urgent"
                     else:
                         print("Not urgent")
+                        urgent_flag = "not urgent"
 
                 else:
                     trimmed_note = "the record is empty"
@@ -200,7 +203,7 @@ def test_notes(ticket_id):
         print("API request failed:", str(e))
         return jsonify({"status": "api_error", "error": str(e)}), 500
 
-    return "Check logs!!!"
+    return urgent_flag
 
 @app.route("/")
 def home():
