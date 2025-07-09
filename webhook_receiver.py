@@ -210,9 +210,10 @@ def test_notes(ticket_id):
                     result = "The voicemail record is empty"
                 print("Note passed to machine learning:", result)
             else:
+                result = "No notes found."
                 print("No notes found.")
         else:
-            # print(response.status_code)
+            result = "Failed to fetch voicemail ticket notes"
             print("Failed to fetch notes:", response.text)
     except requests.exceptions.RequestException as e:
         print("API request failed:", str(e))
