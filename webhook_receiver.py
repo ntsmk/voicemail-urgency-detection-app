@@ -9,12 +9,14 @@ from twilio.rest import Client
 
 app = Flask(__name__)
 
+# todo add db to store the voicemail data
 @app.route("/webhook", methods=["POST"])
 def handle_webhook():
     data = request.json
 
     print("Received raw webhook data:", data)
 
+    # Getting ticket title and ID from data received via webhook
     entity_str = data.get("Entity")
     if not entity_str:
         print("No 'Entity' field in payload.")
@@ -29,8 +31,11 @@ def handle_webhook():
     ticket_title = entity.get("summary", "").lower()
     ticket_id = entity.get("id", "")
 
+    # Checking if the ticket is voicemail ticket or not
     if "voicemail for" in ticket_title:
         print("Voicemail ticket detected:", ticket_title)
+
+        # Calling ConnectWise API to get the detail note
         cw_company_id = os.getenv("company_id")
         cw_client_id = os.getenv("client_id")
         cw_public_key = os.getenv("public_key")
@@ -50,13 +55,14 @@ def handle_webhook():
 
         try:
             response = requests.get(note_url, headers=headers, timeout=10)
-            print("executed .get here")
 
             if response.status_code == 200:
                 notes = response.json()
                 if notes:
                     print("First Note:", notes[0])
                     split_note = notes[0]["text"].split("--- Google transcription result ---", 1)[-1].strip()
+
+                    # If the voicemail record is not empty, calling Vertex AI API to detect the urgency of text
                     if split_note not in ["(Google was unable to recognize any speech in audio data.)", "null",
                                           "null\nnull"]:
                         trimmed_note = split_note
@@ -92,11 +98,13 @@ def handle_webhook():
                         # Make the POST request
                         response = requests.post(URL, headers=headers, json=body)
 
-                        # Show result
+                        # Show result of category classification
                         result = response.json()['candidates'][0]['content']['parts'][0]['text']
                         print(result)
+
+                        # If it is urgent category, sending text via Twilio to notify
                         if "urgent" in result:
-                            print("Urgent. Send text to notify")
+                            print("Urgent. Sending text to notify")
                             tw_account_id = os.getenv("account_sid")
                             tw_auth_token = os.getenv("auth_token")
                             tw_from_number = os.getenv("from_number")
