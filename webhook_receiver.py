@@ -189,7 +189,7 @@ def test_notes(ticket_id):
                     if "urgent" in result:
                         print("Urgent. Send text to notify")
                         urgent_flag = "urgent"
-                        tw_account_id = os.getenv("account_id")
+                        tw_account_id = os.getenv("account_sid")
                         tw_auth_token = os.getenv("auth_token")
                         tw_from_number = os.getenv("from_number")
                         tw_to_number = os.getenv("to_number")
