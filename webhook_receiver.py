@@ -95,14 +95,30 @@ def handle_webhook():
                         # Show result
                         result = response.json()['candidates'][0]['content']['parts'][0]['text']
                         print(result)
+                        if "urgent" in result:
+                            print("Urgent. Send text to notify")
+                            tw_account_id = os.getenv("account_sid")
+                            tw_auth_token = os.getenv("auth_token")
+                            tw_from_number = os.getenv("from_number")
+                            tw_to_number = os.getenv("to_number")
+
+                            client = Client(tw_account_id, tw_auth_token)
+                            message = client.messages.create(
+                                from_=tw_from_number,
+                                body=f"\n\nUrgency detected on voicemail ticket. \n\nTicket#:{ticket_id}\n\nDetails:{trimmed_note}",
+                                to=tw_to_number
+                            )
+                            print("Sent")
+
+                        else:
+                            print("Not urgent")
 
                     else:
-                        trimmed_note = "the record is empty"
+                        trimmed_note = "the voicemail record is empty"
                     print("Note passed to machine learning:", trimmed_note)
                 else:
                     print("No notes found.")
             else:
-                # print(response.status_code)
                 print("Failed to fetch notes:", response.text)
         except requests.exceptions.RequestException as e:
             print("API request failed:", str(e))
@@ -184,7 +200,6 @@ def test_notes(ticket_id):
                     # Show result
                     result = response.json()['candidates'][0]['content']['parts'][0]['text']
                     print(result)
-                    # todo if the result contains "urgent", send text via twilio
 
                     if "urgent" in result:
                         print("Urgent. Send text to notify")
