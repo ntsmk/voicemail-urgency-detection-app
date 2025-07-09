@@ -183,6 +183,10 @@ def test_notes(ticket_id):
                     result = response.json()['candidates'][0]['content']['parts'][0]['text']
                     print(result)
                     # todo if the result contains "urgent", send text via twilio
+                    if "urgent" in result:
+                        print("Urgent. Send text to notify")
+                    else:
+                        print("Not urgent")
 
                 else:
                     trimmed_note = "the record is empty"
