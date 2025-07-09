@@ -197,7 +197,7 @@ def test_notes(ticket_id):
                         client = Client(tw_account_id, tw_auth_token)
                         message =client.messages.create(
                             from_=tw_from_number,
-                            body=f"Urgency detected on voicemail ticket. \nTicket#:{ticket_id}\nDetails:{trimmed_note}",
+                            body=f"\n\nUrgency detected on voicemail ticket. \n\nTicket#:{ticket_id}\n\nDetails:{trimmed_note}",
                             to=tw_to_number
                         )
                         print("Sent")
