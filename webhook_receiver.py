@@ -134,6 +134,7 @@ def test_notes(ticket_id):
         "Content-Type": "application/json"
     }
     urgent_flag = ""
+    result = ""
     try:
         response = requests.get(note_url, headers=headers, timeout=10)
         print("executed .get here")
@@ -203,7 +204,7 @@ def test_notes(ticket_id):
         print("API request failed:", str(e))
         return jsonify({"status": "api_error", "error": str(e)}), 500
 
-    return urgent_flag
+    return result
 
 @app.route("/")
 def home():
