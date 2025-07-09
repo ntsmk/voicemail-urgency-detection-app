@@ -59,7 +59,6 @@ def handle_webhook():
                     if split_note not in ["(Google was unable to recognize any speech in audio data.)", "null",
                                           "null\nnull"]:
                         trimmed_note = split_note
-                        # todo connect to Vertex AI API here
                         gcp_project_id = os.getenv("project_id")
                         gcp_location = os.getenv("location")
                         gcp_endpoint_id = os.getenv("endpoint_id")
@@ -93,7 +92,8 @@ def handle_webhook():
                         response = requests.post(URL, headers=headers, json=body)
 
                         # Show result
-                        print(response.json()['candidates'][0]['content']['parts'][0]['text'])
+                        result = response.json()['candidates'][0]['content']['parts'][0]['text']
+                        print(result)
 
                     else:
                         trimmed_note = "the record is empty"
@@ -112,10 +112,10 @@ def handle_webhook():
         print("Skipping non-voicemail ticket:", ticket_title)
         return jsonify({"status": "ignored"}), 200
 
-# todo pass the trimmed text to vertex AI
+# This is a test route before trying webhook function. Try this and if works, merge it to webhook
 @app.route("/test_notes/<ticket_id>")
 def test_notes(ticket_id):
-    print("Voicemail ticket detected: This is test route")
+    print("Voicemail ticket detected: This is a test route")
 
     cw_company_id = os.getenv("company_id")
     cw_client_id = os.getenv("client_id")
@@ -146,7 +146,7 @@ def test_notes(ticket_id):
                 if split_note not in ["(Google was unable to recognize any speech in audio data.)", "null",
                                         "null\nnull"]:
                     trimmed_note = split_note
-                    # todo connect to Vertex AI API here
+
                     gcp_project_id = os.getenv("project_id")
                     gcp_location = os.getenv("location")
                     gcp_endpoint_id = os.getenv("endpoint_id")
@@ -180,7 +180,9 @@ def test_notes(ticket_id):
                     response = requests.post(URL, headers=headers, json=body)
 
                     # Show result
-                    print(response.json()['candidates'][0]['content']['parts'][0]['text'])
+                    result = response.json()['candidates'][0]['content']['parts'][0]['text']
+                    print(result)
+                    # todo if the result contains "urgent", send text via twilio
 
                 else:
                     trimmed_note = "the record is empty"
