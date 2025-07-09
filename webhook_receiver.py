@@ -193,8 +193,8 @@ def test_notes(ticket_id):
                         urgent_flag = "not urgent"
 
                 else:
-                    trimmed_note = "the record is empty"
-                print("Note passed to machine learning:", trimmed_note)
+                    result = "The voicemail record is empty"
+                print("Note passed to machine learning:", result)
             else:
                 print("No notes found.")
         else:
