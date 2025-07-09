@@ -200,6 +200,7 @@ def test_notes(ticket_id):
                             body=f"Urgency detected on voicemail ticket. \nTicket#:{ticket_id}\nDetails:{trimmed_note}",
                             to=tw_to_number
                         )
+                        print("Sent")
 
                     else:
                         print("Not urgent")
