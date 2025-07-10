@@ -33,6 +33,7 @@ This project was inspired by the need to triage customer voicemails quickly and 
 ## 📂 Tech Stack
 
 - Python
+- Flask
 - Google Cloud Vertex AI
 - Google Cloud NLP (initially)
 - Google Cloud Run
