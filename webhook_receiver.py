@@ -9,7 +9,6 @@ from twilio.rest import Client
 
 app = Flask(__name__)
 
-# todo add db to store the voicemail data
 @app.route("/webhook", methods=["POST"])
 def handle_webhook():
     data = request.json
@@ -137,6 +136,8 @@ def handle_webhook():
         print("Skipping non-voicemail ticket:", ticket_title)
         return jsonify({"status": "ignored"}), 200
 
+
+# todo add db to store the voicemail data and test it
 # This is a test route before trying webhook function. Try this and if works, merge it to webhook
 @app.route("/test_notes/<ticket_id>")
 def test_notes(ticket_id):
@@ -212,17 +213,17 @@ def test_notes(ticket_id):
                     if "urgent" in result:
                         print("Urgent. Send text to notify")
                         urgent_flag = "urgent"
-                        tw_account_id = os.getenv("account_sid")
-                        tw_auth_token = os.getenv("auth_token")
-                        tw_from_number = os.getenv("from_number")
-                        tw_to_number = os.getenv("to_number")
-
-                        client = Client(tw_account_id, tw_auth_token)
-                        message =client.messages.create(
-                            from_=tw_from_number,
-                            body=f"\n\nUrgency detected on voicemail ticket. \n\nTicket#:{ticket_id}\n\nDetails:{trimmed_note}",
-                            to=tw_to_number
-                        )
+                        # tw_account_id = os.getenv("account_sid")
+                        # tw_auth_token = os.getenv("auth_token")
+                        # tw_from_number = os.getenv("from_number")
+                        # tw_to_number = os.getenv("to_number")
+                        #
+                        # client = Client(tw_account_id, tw_auth_token)
+                        # message =client.messages.create(
+                        #     from_=tw_from_number,
+                        #     body=f"\n\nUrgency detected on voicemail ticket. \n\nTicket#:{ticket_id}\n\nDetails:{trimmed_note}",
+                        #     to=tw_to_number
+                        # )
                         print("Sent")
 
                     else:
