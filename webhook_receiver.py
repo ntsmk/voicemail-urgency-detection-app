@@ -161,6 +161,7 @@ def test_notes(ticket_id):
     }
     urgent_flag = ""
     result = ""
+    db_saved = ""
     try:
         response = requests.get(note_url, headers=headers, timeout=10)
         print("executed .get here")
@@ -224,11 +225,15 @@ def test_notes(ticket_id):
                         #     body=f"\n\nUrgency detected on voicemail ticket. \n\nTicket#:{ticket_id}\n\nDetails:{trimmed_note}",
                         #     to=tw_to_number
                         # )
-                        print("Sent")
+                        # print("Sent")
+                        # todo add codes here to insert the data to postgres db
+
+                        db_saved = "saved to Postgres"
 
                     else:
                         print("Not urgent")
                         urgent_flag = "not urgent"
+                        db_saved = "Not urgent, not saved to db"
 
                 else:
                     result = "The voicemail record is empty"
@@ -245,9 +250,10 @@ def test_notes(ticket_id):
 
     return jsonify({
         "category": result,
-        "urgency": urgent_flag
+        "urgency": urgent_flag,
+        "DB status": db_saved,
     })
 
 @app.route("/")
 def home():
-    return "webhook is up"
+    return "webhook is up!"
