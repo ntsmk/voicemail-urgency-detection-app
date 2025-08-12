@@ -13,7 +13,6 @@ from flask_sqlalchemy import SQLAlchemy
 supa_pass = os.getenv("supa_pass")
 
 app = Flask(__name__)
-# todo move db to cloud, not localhost
 app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://postgres.iayfkcmhzxpuommlhnur:{supa_pass}@aws-1-us-west-1.pooler.supabase.com:6543/postgres"
 db.init_app(app)
 
@@ -126,6 +125,15 @@ def handle_webhook():
                             )
                             print("Sent")
 
+                            # If it is urgent category, save the data to database
+                            new_ticket = Voicemails(
+                                ticket_id=ticket_id,
+                                message=trimmed_note
+                            )
+                            db.session.add(new_ticket)
+                            db.session.commit()
+                            print("Added to db")
+
                         else:
                             print("Not urgent")
 
@@ -146,6 +154,7 @@ def handle_webhook():
         return jsonify({"status": "ignored"}), 200
 
 
+# this is test route for webhook
 @app.route("/classify/<ticket_id>")
 def test_notes(ticket_id):
     cw_company_id = os.getenv("company_id")
@@ -236,16 +245,13 @@ def test_notes(ticket_id):
                             ticket_id=ticket_id,
                             message=trimmed_note
                         )
-                        # todo add codes here to insert the data to postgres db on cloud
                         db.session.add(new_ticket)
                         db.session.commit()
                         print("Added to db")
 
-
                     else:
                         print("Not urgent")
                         urgent_flag = "not urgent"
-
 
                 else:
                     result = "The voicemail record is empty"
