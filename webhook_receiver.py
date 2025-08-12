@@ -3,7 +3,7 @@ import os
 import json
 import requests
 import base64
-from google.auth import default
+from google.auth import default, message
 from google.auth.transport.requests import Request
 from twilio.rest import Client
 from model import db, Voicemails
@@ -12,6 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 db_password = os.getenv("db_password")
 
 app = Flask(__name__)
+# todo move db to cloud
 app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://postgres:{db_password}@localhost:5432/voicemail_db"
 db.init_app(app)
 
@@ -230,8 +231,13 @@ def test_notes(ticket_id):
                         #     to=tw_to_number
                         # )
                         # print("Sent")
-                        # todo add codes here to insert the data to postgres db
-
+                        # todo add codes here to insert the data to postgres db on cloud
+                        new_ticket = Voicemails(
+                            ticket_id=ticket_id,
+                            message=trimmed_note
+                        )
+                        # db.session.add(new_ticket)
+                        # db.session.commit()
 
 
                     else:
