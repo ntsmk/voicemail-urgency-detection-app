@@ -237,9 +237,9 @@ def test_notes(ticket_id):
                             message=trimmed_note
                         )
                         # todo add codes here to insert the data to postgres db on cloud
-                        # db.session.add(new_ticket)
-                        # db.session.commit()
-                        # print("Added to db")
+                        db.session.add(new_ticket)
+                        db.session.commit()
+                        print("Added to db")
 
 
                     else:
