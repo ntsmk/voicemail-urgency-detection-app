@@ -12,7 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 db_password = os.getenv("db_password")
 
 app = Flask(__name__)
-# todo move db to cloud
+# todo move db to cloud, not localhost
 app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://postgres:{db_password}@localhost:5432/voicemail_db"
 db.init_app(app)
 
@@ -145,7 +145,6 @@ def handle_webhook():
         return jsonify({"status": "ignored"}), 200
 
 
-# todo add db to store the voicemail data and test it
 @app.route("/classify/<ticket_id>")
 def test_notes(ticket_id):
     cw_company_id = os.getenv("company_id")
@@ -231,13 +230,15 @@ def test_notes(ticket_id):
                         #     to=tw_to_number
                         # )
                         # print("Sent")
-                        # todo add codes here to insert the data to postgres db on cloud
+
                         new_ticket = Voicemails(
                             ticket_id=ticket_id,
                             message=trimmed_note
                         )
-                        db.session.add(new_ticket)
-                        db.session.commit()
+                        # todo add codes here to insert the data to postgres db on cloud
+                        # db.session.add(new_ticket)
+                        # db.session.commit()
+                        # print("Added to db")
 
 
                     else:
