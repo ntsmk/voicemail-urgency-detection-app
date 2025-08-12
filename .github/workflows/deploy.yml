@@ -58,4 +58,5 @@ jobs:
             --set-env-vars auth_token=${{ secrets.AUTH_TOKEN }} \
             --set-env-vars from_number=${{ secrets.FROM_NUMBER }} \
             --set-env-vars to_number=${{ secrets.TO_NUMBER }} \
-            --set-env-vars db_password=${{ secrets.DB_PASSWORD }}
+            --set-env-vars db_password=${{ secrets.DB_PASSWORD }} \
+            --set-env-vars supa_pass=${{ secrets.SUPABASE_PASS }}

@@ -9,11 +9,12 @@ from twilio.rest import Client
 from model import db, Voicemails
 from flask_sqlalchemy import SQLAlchemy
 
-db_password = os.getenv("db_password")
+
+supa_pass = os.getenv("supa_pass")
 
 app = Flask(__name__)
 # todo move db to cloud, not localhost
-app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://postgres:{db_password}@localhost:5432/voicemail_db"
+app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://postgres.iayfkcmhzxpuommlhnur:{supa_pass}@aws-1-us-west-1.pooler.supabase.com:6543/postgres"
 db.init_app(app)
 
 
