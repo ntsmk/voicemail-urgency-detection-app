@@ -6,6 +6,7 @@ import base64
 from google.auth import default
 from google.auth.transport.requests import Request
 from twilio.rest import Client
+from model import Voicemails
 
 app = Flask(__name__)
 
@@ -158,7 +159,6 @@ def test_notes(ticket_id):
     }
     urgent_flag = ""
     result = ""
-    db_saved = ""
 
     try:
         response = requests.get(note_url, headers=headers, timeout=10)
@@ -226,12 +226,12 @@ def test_notes(ticket_id):
                         # print("Sent")
                         # todo add codes here to insert the data to postgres db
 
-                        db_saved = "saved to Postgres"
+
 
                     else:
                         print("Not urgent")
                         urgent_flag = "not urgent"
-                        db_saved = "Not urgent, not saved to db"
+
 
                 else:
                     result = "The voicemail record is empty"
@@ -249,7 +249,6 @@ def test_notes(ticket_id):
     return jsonify({
         "category": result,
         "urgency": urgent_flag,
-        "DB status": db_saved,
     })
 
 @app.route("/")
