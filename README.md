@@ -38,6 +38,7 @@ This project was inspired by the need to triage customer voicemails quickly and 
 - Google Cloud NLP (initially)
 - Google Cloud Run
 - Docker
+- PostgreSQL
 
 ---
 
@@ -52,3 +53,4 @@ This project was inspired by the need to triage customer voicemails quickly and 
 ## 📌 Note
 
 This project is **not complete yet**. It is being built step by step to improve my skills in backend development, cloud services, and applied AI.
+
