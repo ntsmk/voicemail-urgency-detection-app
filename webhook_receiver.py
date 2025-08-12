@@ -138,11 +138,8 @@ def handle_webhook():
 
 
 # todo add db to store the voicemail data and test it
-# This is a test route before trying webhook function. Try this and if works, merge it to webhook
-@app.route("/test_notes/<ticket_id>")
+@app.route("/classify/<ticket_id>")
 def test_notes(ticket_id):
-    print("Voicemail ticket detected: This is a test route")
-
     cw_company_id = os.getenv("company_id")
     cw_client_id = os.getenv("client_id")
     cw_public_key = os.getenv("public_key")
@@ -162,6 +159,7 @@ def test_notes(ticket_id):
     urgent_flag = ""
     result = ""
     db_saved = ""
+
     try:
         response = requests.get(note_url, headers=headers, timeout=10)
         print("executed .get here")
@@ -212,8 +210,8 @@ def test_notes(ticket_id):
                     print(result)
 
                     if "urgent" in result:
-                        print("Urgent. Send text to notify")
                         urgent_flag = "urgent"
+                        # print("Urgent. Send text to notify")
                         # tw_account_id = os.getenv("account_sid")
                         # tw_auth_token = os.getenv("auth_token")
                         # tw_from_number = os.getenv("from_number")
