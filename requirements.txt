@@ -9,3 +9,4 @@ google-cloud-aiplatform
 twilio
 Flask-SQLAlchemy
 SQLAlchemy
+psycopg2-binary
