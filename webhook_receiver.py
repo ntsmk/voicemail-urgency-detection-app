@@ -6,9 +6,15 @@ import base64
 from google.auth import default
 from google.auth.transport.requests import Request
 from twilio.rest import Client
-from model import Voicemails
+from model import db, Voicemails
+from flask_sqlalchemy import SQLAlchemy
+
+db_password = os.getenv("db_password")
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://postgres:{db_password}@localhost:5432/voicemail_db"
+db.init_app(app)
+
 
 @app.route("/webhook", methods=["POST"])
 def handle_webhook():
@@ -102,8 +108,8 @@ def handle_webhook():
                         result = response.json()['candidates'][0]['content']['parts'][0]['text']
                         print(result)
 
-                        # If it is urgent category, sending text via Twilio to notify
                         if "urgent" in result:
+                            # If it is urgent category, sending text via Twilio to notify
                             print("Urgent. Sending text to notify")
                             tw_account_id = os.getenv("account_sid")
                             tw_auth_token = os.getenv("auth_token")
