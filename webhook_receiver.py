@@ -236,8 +236,8 @@ def test_notes(ticket_id):
                             ticket_id=ticket_id,
                             message=trimmed_note
                         )
-                        # db.session.add(new_ticket)
-                        # db.session.commit()
+                        db.session.add(new_ticket)
+                        db.session.commit()
 
 
                     else:
