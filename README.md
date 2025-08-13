@@ -18,18 +18,6 @@ This project was inspired by the need to triage customer voicemails quickly and 
 
 ---
 
-## Current Status
-
-- [x] Initial research
-- [x] Google NLP tried (results not useful)
-- [x] Decided to fine tune the machine learning model on Vertex AI
-- [x] Dataset preparation with real-world voicemail samples. Manually labeling for all voicemai records.
-- [x] Model fine-tuning 
-- [x] Deployment
-- [ ] Add database to store the voicemail data
-
----
-
 ## Tech Stack
 
 - Python
@@ -48,11 +36,5 @@ This project was inspired by the need to triage customer voicemails quickly and 
 - Improve dataset with more sample data.
 
 ---
-
-
-## Note
-
-This project is **not complete yet**. It is being built step by step to improve my skills in backend development, cloud services, and applied AI.
-
 
 
