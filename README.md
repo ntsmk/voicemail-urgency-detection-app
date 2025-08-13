@@ -1,6 +1,6 @@
 # Voicemail Urgency Detection
 
-This system detects urgency levels in voicemail transcriptions using Google Vertex AI. The goal is to build a backend service that classifies voicemails as **urgent** or **non-urgent**, helping streamline response prioritization in IT support.
+This system detects urgency levels in voicemail transcriptions using Google Vertex AI. It provides a backend service that classifies voicemails as urgent or non-urgent, helping streamline response prioritization in IT support.
 
 ---
 
@@ -12,9 +12,9 @@ This system detects urgency levels in voicemail transcriptions using Google Vert
 
 ---
 
-## Why I am built this?
+## Why was this built
 
-This project was inspired by the need to triage customer voicemails quickly and efficiently in IT service environments especially **after work hours**.
+This project was created to enable fast and efficient triaging of customer voicemails, especially in IT service environments during after-hours, improving overall response times and service quality.
 
 ---
 
@@ -36,6 +36,7 @@ This project was inspired by the need to triage customer voicemails quickly and 
 - Improve dataset with more sample data.
 
 ---
+
 
 
 
