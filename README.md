@@ -12,7 +12,7 @@ This is a work-in-progress project for detecting urgency levels in voicemail tra
 
 ---
 
-## Why I am building this?
+## Why I am built this?
 
 This project was inspired by the need to triage customer voicemails quickly and efficiently in IT service environments especially **after work hours**.
 
@@ -36,5 +36,6 @@ This project was inspired by the need to triage customer voicemails quickly and 
 - Improve dataset with more sample data.
 
 ---
+
 
 
