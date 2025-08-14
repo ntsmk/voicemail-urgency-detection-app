@@ -9,6 +9,7 @@ from twilio.rest import Client
 from model import db, Voicemails
 from flask_sqlalchemy import SQLAlchemy
 
+TESTING = os.getenv("TESTING") == "1"
 
 supa_pass = os.getenv("supa_pass")
 
