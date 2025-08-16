@@ -10,11 +10,15 @@ from model import db, Voicemails
 from flask_sqlalchemy import SQLAlchemy
 
 TESTING = os.getenv("TESTING") == "1"
-
 supa_pass = os.getenv("supa_pass")
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://postgres.iayfkcmhzxpuommlhnur:{supa_pass}@aws-1-us-west-1.pooler.supabase.com:6543/postgres"
+if TESTING:
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
+else:
+    app.config[
+        "SQLALCHEMY_DATABASE_URI"] = f"postgresql://postgres.iayfkcmhzxpuommlhnur:{supa_pass}@aws-1-us-west-1.pooler.supabase.com:6543/postgres"
+
 db.init_app(app)
 
 
