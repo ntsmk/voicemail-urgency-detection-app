@@ -47,7 +47,11 @@ def patch_twilio(monkeypatch, app_module):
 # ---------- Tests ----------
 @responses.activate
 def test_non_voicemail_ticket_ignored(client):
-    pass
+    # summary without "voicemail for" -> ignored
+    payload = cw_webhook_payload("password reset request", 111)
+    resp = client.post("/webhook", json=payload)
+    assert resp.status_code == 200
+    assert resp.get_json()["status"] == "ignored"
 
 @responses.activate
 def test_voicemail_urgent_goes_to_twilio_and_db(client, app_module, db, monkeypatch):
