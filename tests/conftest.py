@@ -34,6 +34,17 @@ def db(app_module):
 @pytest.fixture(scope="function", autouse=True)
 def _db_setup(app,db):
     """
-    create all tables before each
+    create all tables before each test and drop after.
     """
+    with app.app_context():
+        db.create_all()
+        yield
+        db.drop_all()
+
+@pytest.fixture()
+def client(app):
+    """
+    Flask test client for making requests to route.
+    """
+    return app.test_client()
 
