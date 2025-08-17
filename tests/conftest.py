@@ -8,7 +8,7 @@ import importlib
 # Use in-memory DB for testing
 os.environ["TESTING"] = "1"
 
-# Add project root to sys.path so imports work in console and PyCharm
+# Add project root to sys.path so imports work in console(pytest -q) and PyCharm(Shift+F10)
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
