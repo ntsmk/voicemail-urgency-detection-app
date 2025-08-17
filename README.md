@@ -23,6 +23,7 @@ This project was created to enable fast and efficient triaging of customer voice
 - Backend & APIs: Python, Flask
 - Database: PostgreSQL
 - AI / ML: Google Cloud Vertex AI, Google Cloud NLP (initially)
+- Testing: Pytest (unit & integration testing)
 - DevOps & Deployment: Docker, GitHub Actions, Google Cloud Run
 
 
@@ -34,6 +35,7 @@ This project was created to enable fast and efficient triaging of customer voice
 - Improve dataset with more sample data.
 
 ---
+
 
 
 
