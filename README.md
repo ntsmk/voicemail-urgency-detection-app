@@ -26,6 +26,7 @@ This project was created to enable fast and efficient triaging of customer voice
 - Google Cloud NLP (initially)
 - Google Cloud Run
 - Docker
+- GitHub Actions
 - PostgreSQL
 
 ---
@@ -36,6 +37,7 @@ This project was created to enable fast and efficient triaging of customer voice
 - Improve dataset with more sample data.
 
 ---
+
 
 
 
