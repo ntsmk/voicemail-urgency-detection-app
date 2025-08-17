@@ -20,14 +20,11 @@ This project was created to enable fast and efficient triaging of customer voice
 
 ## Tech Stack
 
-- Python
-- Flask
-- Google Cloud Vertex AI
-- Google Cloud NLP (initially)
-- Google Cloud Run
-- Docker
-- GitHub Actions
-- PostgreSQL
+- Backend & APIs: Python, Flask
+- Database: PostgreSQL
+- AI / ML: Google Cloud Vertex AI, Google Cloud NLP (initially)
+- DevOps & Deployment: Docker, GitHub Actions, Google Cloud Run
+
 
 ---
 
@@ -37,6 +34,7 @@ This project was created to enable fast and efficient triaging of customer voice
 - Improve dataset with more sample data.
 
 ---
+
 
 
 
