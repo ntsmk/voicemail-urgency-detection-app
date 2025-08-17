@@ -10,3 +10,4 @@ twilio
 Flask-SQLAlchemy
 SQLAlchemy
 psycopg2-binary
+pytest
