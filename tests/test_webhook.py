@@ -57,6 +57,17 @@ def test_non_voicemail_ticket_ignored(client):
 def test_voicemail_urgent_goes_to_twilio_and_db(client, app_module, db, monkeypatch):
     pass
 
+    # 1) Mock ConnectWise GET /notes
+
+    # 2) Mock google.auth.default & Vertex AI POST
+
+    # 3) Mock Twilio client
+
+    # 4) Call webhook
+
+    # 5) DB assertion
+    # Ensure one Voicemails row created with this ticket_id
+
 @responses.activate
 def test_voicemail_empty_transcript_processed_no_db(client, app_module, db, monkeypatch):
     # Mock CW to return "unable to recognize" so we skip classification
