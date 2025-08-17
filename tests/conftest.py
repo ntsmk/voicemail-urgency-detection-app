@@ -1,11 +1,17 @@
-# test/conftest.py
+# tests/conftest.py
 
+import sys
 import os
-import importlib
 import pytest
+import importlib
 
-
+# Use in-memory DB for testing
 os.environ["TESTING"] = "1"
+
+# Add project root to sys.path so imports work in console and PyCharm
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
 @pytest.fixture(scope="session")
 def app_module():
