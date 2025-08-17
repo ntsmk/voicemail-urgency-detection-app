@@ -2,9 +2,7 @@
 
 import json
 import re
-from types import SimpleNamespace
 import responses
-import importlib
 
 # ---------- helpers to build payloads ----------
 def cw_webhook_payload(summary,ticket_id):
@@ -38,7 +36,6 @@ def patch_google_auth_comprehensive(monkeypatch, app_module):
         def __call__(self, *args, **kwargs):
             return type('FakeResponse', (), {'status': 200})()
 
-    # If your app has already imported these, patch them at the app module level
     if hasattr(app_module, 'default'):  # if imported as 'from google.auth import default'
         monkeypatch.setattr(app_module, 'default', lambda scopes=None: (FakeCredentials(), None))
 
@@ -157,7 +154,7 @@ def test_voicemail_empty_transcript_processed_no_db(client, app_module, db, monk
     )
 
     # Patch Twilio & google.auth just in case (should not be used)
-    # patch_google_auth(monkeypatch)
+    # patch_google_auth_comprehensive(monkeypatch, app_module)
     # patch_twilio(monkeypatch, app_module)
 
     payload = cw_webhook_payload("Voicemail for xx", ticket_id)
