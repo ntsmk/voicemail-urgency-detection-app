@@ -25,7 +25,7 @@ def patch_google_auth(monkeypatch, app_module):
     # monkeypatch google.auth.default to return our fake creds
     import google.auth
 
-    def fake_default(scopes=None)
+    def fake_default(scopes=None):
         return (FakeCredentials(), None)
 
     monkeypatch.setattr(app_module, "default", fake_default())
@@ -59,4 +59,27 @@ def test_voicemail_urgent_goes_to_twilio_and_db(client, app_module, db, monkeypa
 
 @responses.activate
 def test_voicemail_empty_transcript_processed_no_db(client, app_module, db, monkeypatch):
-    pass
+    # Mock CW to return "unable to recognize" so we skip classification
+    ticket_id = 333
+    base_url = "https://na.myconnectwise.net/v4_6_release/apis/3.0"
+    notes_url = f"{base_url}/service/tickets/{ticket_id}/notes"
+    responses.add(
+        responses.GET, notes_url,
+        json=cw_notes_body("(Google was unable to recognize any speech in audio data.)"),
+        status=200
+    )
+
+    # Patch Twilio & google.auth just in case (should not be used)
+    patch_google_auth(monkeypatch, app_module)
+    patch_twilio(monkeypatch, app_module)
+
+    payload = cw_webhook_payload("Voicemail for xx", ticket_id)
+    resp = client.post("/webhook", json=payload)
+    assert resp.status_code == 200
+    assert resp.get_json()["status"] == "processed"
+
+    # No db rows should be created
+    with app_module.app.app_context():
+        rows = app_module.Voicemails.query.all()
+        assert len(rows) == 0
+
