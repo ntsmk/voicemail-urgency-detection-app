@@ -4,7 +4,7 @@ This system detects urgency levels in voicemail transcriptions using Google Vert
 
 ---
 
-## What is this?
+## Overview
 
 - Analyze voicemail transcriptions using machine learning to detect urgency.
 - Fine-tune a machine learning model with Google Vertex AI for more acurate detection.
@@ -14,7 +14,7 @@ This system detects urgency levels in voicemail transcriptions using Google Vert
 
 ## Why was this built
 
-This project was created to enable fast and efficient triaging of customer voicemails, especially in IT service environments during after-hours, improving overall response times and service quality.
+This project was created to enable fast and efficient triaging of customer voicemails, especially in IT support environments during after-hours, improving overall response times and service quality.
 
 ---
 
@@ -41,6 +41,7 @@ This project was created to enable fast and efficient triaging of customer voice
 <img src="images/screenshot_voicemail.jpeg" alt="Alt text" width="400"/>
 
 ---
+
 
 
 
