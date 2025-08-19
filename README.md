@@ -20,7 +20,7 @@ This project was created to enable fast and efficient triaging of customer voice
 
 ## Tech Stack
 
-- Backend & APIs: Python, Flask
+- Backend & APIs: Python, Flask, ConnectWise API, Twilio API
 - Database: PostgreSQL
 - AI / ML: Google Cloud Vertex AI, Google Cloud NLP (initially)
 - Testing: Pytest (unit & integration testing)
@@ -41,6 +41,7 @@ This project was created to enable fast and efficient triaging of customer voice
 <img src="images/screenshot_voicemail.jpeg" alt="Alt text" width="400"/>
 
 ---
+
 
 
 
