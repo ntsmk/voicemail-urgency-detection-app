@@ -36,6 +36,11 @@ This project was created to enable fast and efficient triaging of customer voice
 
 ---
 
+## Screenshot
+
+![screenshot_voicemail.jpeg](images/screenshot_voicemail.jpeg)
+
+---
 
 
 
