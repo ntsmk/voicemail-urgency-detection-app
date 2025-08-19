@@ -38,7 +38,7 @@ This project was created to enable fast and efficient triaging of customer voice
 
 ## Screenshot
 
-![screenshot_voicemail.jpeg](images/screenshot_voicemail.jpeg)
+<img src="images/screenshot_voicemail.jpeg" alt="Alt text" width="400"/>
 
 ---
 
