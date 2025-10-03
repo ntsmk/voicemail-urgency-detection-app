@@ -25,6 +25,8 @@ This project was created to enable fast and efficient triaging of customer voice
 - AI / ML: Google Cloud Vertex AI, Google Cloud NLP (initially)
 - Testing: Pytest (unit & integration testing)
 - DevOps & Deployment: Docker, GitHub Actions, Google Cloud Run
+- Security & Secrets Management: GitHub Secrets for API credentials and environment variables
+- Observability: Google Cloud Run Logging for application monitoring, error tracking, and debugging
 
 
 ---
@@ -41,6 +43,7 @@ This project was created to enable fast and efficient triaging of customer voice
 <img src="images/screenshot_voicemail.jpeg" alt="Alt text" width="400"/>
 
 ---
+
 
 
 
