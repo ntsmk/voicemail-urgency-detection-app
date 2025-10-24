@@ -26,6 +26,10 @@ This project was created to enable fast and efficient triaging of customer voice
 - Testing: Pytest (unit & integration testing)
 - DevOps & Deployment: Docker, GitHub Actions, Google Cloud Run
 
+---
+
+## Architecture diagram
+<img src="images/diagram_v1.jpg" alt="Alt text" width="800"/>
 
 ---
 
