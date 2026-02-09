@@ -6,8 +6,8 @@ This system detects urgency levels in voicemail transcriptions using Google Vert
 
 ## Overview
 
+- Fine-tune a machine learning model with Google Vertex AI for more accurate detection using 300+ real voicemail dataset.
 - Analyze voicemail transcriptions using machine learning to detect urgency.
-- Fine-tune a machine learning model with Google Vertex AI for more accurate detection.
 - When the urgent voicemail is detected, the system send text via Twilio to notify and save the data to the database.
 
 ---
@@ -35,18 +35,12 @@ This project was created to enable fast and efficient triaging of customer voice
 
 ---
 
-## Future Improvements
-
-- Use more advanced NLP (e.g., transformers like BERT).
-- Improve dataset with more sample data.
-
----
-
 ## Screenshot
 
 <img src="images/screenshot_voicemail.jpeg" alt="Alt text" width="400"/>
 
 ---
+
 
 
 
